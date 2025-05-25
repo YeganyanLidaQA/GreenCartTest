@@ -1,0 +1,24 @@
+stages:
+  - build
+  - test
+
+image: cypress/browsers:node-18.12.0-chrome-107
+
+cache:
+  paths:
+    - node_modules/
+
+build:
+  stage: build
+  script:
+    - npm ci
+
+test:
+  stage: test
+  script:
+    - npm run test
+  artifacts:
+    when: always
+    paths:
+      - reports/mochawesome-report/
+    expire_in: 1 week
